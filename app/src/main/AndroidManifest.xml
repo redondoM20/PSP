@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PSPPlayground" >
         <activity
-            android:name=".ut02.MainActivity"
+            android:name=".ut02.NetworkActivity"
             android:exported="true" />
         <activity
             android:name=".MainActivity"
