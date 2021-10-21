@@ -14,7 +14,7 @@ class NetworkActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
-        testSyncApi()
+        //testSyncApiPost()
         //testSyncApi1()
     }
 
@@ -105,5 +105,16 @@ class NetworkActivity : AppCompatActivity() {
                 Log.e(TAG, error)
             }
         })
+    }
+
+    private fun testSyncApiPost() {
+        val posts = apiClient.getPost()
+        if (posts.isNotEmpty()) {
+            posts.forEach {
+                Log.i(TAG, "$it")
+            }
+        } else {
+            Log.i(TAG, "User list is empty")
+        }
     }
 }

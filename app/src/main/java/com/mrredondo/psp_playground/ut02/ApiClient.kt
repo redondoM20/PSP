@@ -7,13 +7,14 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 interface ApiClient {
-    fun getUsers (): List<UserApiModel>
-    fun getUsers (callback: ApiCallback<List<UserApiModel>>)
+    fun getUsers(): List<UserApiModel>
+    fun getUsers(callback: ApiCallback<List<UserApiModel>>)
+    fun getUser(userId: Int) : UserApiModel?
     fun getPost(): List<PostApiModel>
     //fun getPost(callback: ApiCallback<List<PostApiModel>>)
 }
 
-class MockApiClient : ApiClient{
+class MockApiClient : ApiClient {
     override fun getUsers(): List<UserApiModel> {
         return mutableListOf(
             UserApiModel(1, "Usuario 1", "Usuario1", "user@email.es"),
@@ -34,6 +35,10 @@ class MockApiClient : ApiClient{
         )
     }
 
+    override fun getUser(userId: Int): UserApiModel{
+        return UserApiModel(1, "Usuario 1", "Usuario1", "user@email.es")
+    }
+
     override fun getPost(): List<PostApiModel> {
         return mutableListOf(
             PostApiModel(1, 1, "User1", "User1"),
@@ -42,6 +47,7 @@ class MockApiClient : ApiClient{
             PostApiModel(4, 4, "User4", "User4"),
         )
     }
+
 
     /*override fun getPost(callback: ApiCallback<List<PostApiModel>>) {
         callback.onResponse(
@@ -109,14 +115,24 @@ class RetrofitApiClient : ApiClient {
         })
     }
 
+    override fun getUser(userId: Int): UserApiModel? {
+        val call = apiEndPoint.getUser(userId)
+        val response = call.execute()
+        if (response.isSuccessful) {
+            val user = response.body()
+            return user
+        } else {
+            return null
+        }
+    }
+
     override fun getPost(): List<PostApiModel> {
         val call = apiEndPoint.getPost()
         val response = call.execute()
-        if (response.isSuccessful) {
-            val users = response.body()
-            return users ?: mutableListOf()
+        return if (response.isSuccessful) {
+            response.body() ?: mutableListOf()
         } else {
-            return mutableListOf()
+            mutableListOf()
         }
     }
 
