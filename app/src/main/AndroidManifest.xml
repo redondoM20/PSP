@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PSPPlayground">
         <activity
+            android:name=".ut02.exercise2.presentation.AlertsActivity"
+            android:exported="true" />
+        <activity
             android:name=".ut02.exercise1.Exercise1Activity"
             android:exported="true" />
         <activity
