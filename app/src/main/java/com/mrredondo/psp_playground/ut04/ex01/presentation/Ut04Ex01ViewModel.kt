@@ -16,7 +16,7 @@ class Ut04Ex01ViewModel : ViewModel(){
         MutableLiveData<AlertViewState>()
     }
 
-    fun loadData() = viewModelScope.launch(Dispatchers.IO) {
+    fun loadData() = viewModelScope.launch(Dispatchers.Main) {
         delay(1000L)
         _alertViewState.postValue(AlertViewState(Random.toString(), Random.toString()))
     }
